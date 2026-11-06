@@ -103,6 +103,50 @@ One JSON line per decision (hashes shortened here). Note there is **no ticket te
 
 Each entry includes the hash of the one before it, so editing or removing a line is detectable (`verify-audit`).
 
+## Example: what goes in, what comes out (KB skill)
+
+A resolved incident goes in (the first record in [`data/synthetic/incidents.json`](data/synthetic/incidents.json)). Only some of it reaches the skill:
+
+| Field | Example (invented) | Does the skill see it? |
+|---|---|---|
+| category | Network / VPN | Yes |
+| short_description | VPN disconnects after laptop wakes from sleep | Yes |
+| symptoms | VPN shows Connected but internal sites time out; reconnecting works until the next sleep | Yes |
+| cause | The VPN adapter's power-saving option turned it off during sleep | Yes |
+| resolution_steps | Open Device Manager, open the adapter's Properties, clear the power-saving box, ... | Yes |
+| notes | "Seen on ACME-LT-0417 and a few others..." | Yes, but the computer name is masked |
+| ticket_number | INC0099001 | Dropped |
+| reporter_name / email / phone | Riley Example, etc. | Dropped |
+| asset_hostname | ACME-LT-0417 | Dropped |
+| assigned_to, internal_comments | Names, "customer was frustrated" | Dropped |
+
+A draft article comes out, in a fixed template, marked as a draft and held in `pending_review/` until a different person approves it:
+
+```
+# VPN disconnects after laptop wakes from sleep
+Category: Network / VPN
+Status: DRAFT - pending human review
+
+## Symptoms
+- VPN client shows Connected but internal sites time out after the laptop wakes from sleep.
+- Reconnecting manually works until the next sleep.
+
+## Cause
+The VPN adapter's power-saving option let Windows turn the adapter off during sleep, ...
+
+## Resolution steps
+1. Open Device Manager and expand Network adapters.
+2. Open the VPN adapter's Properties and go to the Power Management tab.
+3. Clear 'Allow the computer to turn off this device to save power'.
+4. Restart the VPN client, then sleep and wake the laptop to confirm the fix.
+
+## Notes
+Seen on [REDACTED:hostname] and a few other laptops of the same model. ...
+```
+
+In this demo a deterministic stand-in fills the template, so the wording is the ticket's own text reformatted. A real model would
+also tidy the prose; the controls around it would stay the same.
+
 ## The two skills
 
 **1. KB article generator.** Takes a resolved incident and fills a fixed article template (title, symptoms, cause, resolution
