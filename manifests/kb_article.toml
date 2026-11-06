@@ -1,0 +1,44 @@
+# Scope manifest: KB article generator (Acme Service Desk, synthetic).
+#
+# This file IS the skill's permission set. Anything not written here is denied.
+# The code enforces it; the model is never asked to "please follow" it.
+
+[skill]
+name    = "kb_article"
+purpose = "Turn one resolved incident into a DRAFT knowledge-base article for human review."
+
+[access]
+# Who may run it (roles are defined in data/synthetic/users.toml).
+allowed_roles = ["author"]
+# The ONLY incident fields the skill may see. Every other field is dropped
+# before the scrubber or the model sees it (reporter details, hostnames,
+# ticket numbers, internal comments, ...).
+allowed_inputs = [
+  "category",
+  "short_description",
+  "symptoms",
+  "cause",
+  "resolution_steps",
+  "notes",
+]
+
+[forbidden]
+# Sensitive-looking text inside the allowed fields.
+# redact = replace with a marker and carry on.
+# reject = refuse the whole request (fail closed).
+# Any known class not listed in either list is rejected.
+redact     = ["email", "phone", "case_number", "hostname", "ip_address", "person_name"]
+reject     = ["ssn", "secret"]
+deny_terms = []
+
+[writes]
+# The only place this skill may write. It can never write to approved/ or publish.
+targets           = ["pending_review"]
+forbidden         = ["approved", "published_kb"]
+requires_approval = true
+
+[output]
+template = "kb_article"
+
+[audit]
+logging = true   # cannot be turned off; the manifest is rejected if this is false

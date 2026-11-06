@@ -1,0 +1,76 @@
+{
+  "name": "ACME-Workstation-Baseline",
+  "description": "Baseline security and power settings for standard office workstations.",
+  "version": 1,
+  "exported_on": "2025-03-01",
+  "last_modified": "2025-02-20",
+  "domain": "acme-demo.test",
+  "delegation": ["Acme-GPO-Editors", "sam.sample"],
+  "linked_ous": ["Workstations", "Laptops"],
+  "settings": [
+    {
+      "path": "Computer Configuration/Administrative Templates/System/Power Management/Sleep Settings",
+      "name": "Allow standby states (S1-S3) when sleeping (plugged in)",
+      "state": "Enabled",
+      "last_modified": "2023-02-10",
+      "comment": "Added to save power in the open office.",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Administrative Templates/Windows Components/Windows Update",
+      "name": "Configure Automatic Updates",
+      "state": "Enabled",
+      "value": "4 - Auto download and schedule the install",
+      "last_modified": "2024-11-02",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Windows Settings/Security Settings/Account Policies/Password Policy",
+      "name": "Minimum password length",
+      "state": "Enabled",
+      "value": "12 characters",
+      "last_modified": "2024-06-20",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Windows Settings/Security Settings/Local Policies/Security Options",
+      "name": "Interactive logon: Machine inactivity limit",
+      "state": "Enabled",
+      "value": "900 seconds",
+      "last_modified": "2024-06-20",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Administrative Templates/System/Removable Storage Access",
+      "name": "All Removable Storage classes: Deny all access",
+      "state": "Enabled",
+      "last_modified": "2022-01-15",
+      "comment": "Legacy USB lockdown.",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Administrative Templates/Windows Components/Microsoft Defender Antivirus",
+      "name": "Turn off Microsoft Defender Antivirus",
+      "state": "Disabled",
+      "last_modified": "2024-09-01",
+      "comment": "Keep Defender running.",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "Computer Configuration/Administrative Templates/Printers",
+      "name": "Point and Print Restrictions",
+      "state": "Enabled",
+      "last_modified": "2021-09-10",
+      "comment": "Legacy. Needed for the old print server.",
+      "modified_by": "sam.sample"
+    },
+    {
+      "path": "User Configuration/Administrative Templates/Control Panel/Personalization",
+      "name": "Screen saver timeout",
+      "state": "Enabled",
+      "value": "600 seconds",
+      "last_modified": "2024-03-12",
+      "modified_by": "sam.sample"
+    }
+  ]
+}

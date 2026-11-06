@@ -1,0 +1,45 @@
+# Scope manifest: GPO documenter (Acme Service Desk, synthetic).
+#
+# READ-ONLY and ASSIST-ONLY. This is a tool for the GPO owner, not a replacement.
+# It reads exported files and produces draft text. It has no write path to
+# Active Directory, DRA or the GPOs themselves.
+
+[skill]
+name    = "gpo_documenter"
+purpose = "Document, compare and review exported GPO files, and draft change-request text for the GPO owner."
+
+[access]
+allowed_roles = ["author"]
+# Nested fields use dots: "settings.name" is the `name` field inside each item of `settings`.
+# Not listed (so dropped): domain, delegation, settings.modified_by, ...
+allowed_inputs = [
+  "name",
+  "description",
+  "version",
+  "exported_on",
+  "last_modified",
+  "linked_ous",
+  "settings.path",
+  "settings.name",
+  "settings.state",
+  "settings.value",
+  "settings.last_modified",
+  "settings.comment",
+]
+
+[forbidden]
+redact     = ["email", "phone", "case_number", "hostname", "ip_address", "person_name"]
+reject     = ["ssn", "secret"]
+deny_terms = []
+
+[writes]
+# Draft text only, and only into the review folder. Nothing here can change a GPO.
+targets           = ["pending_review"]
+forbidden         = ["active_directory", "dra", "gpo_objects", "input_files", "approved"]
+requires_approval = true
+
+[output]
+template = "gpo_report"
+
+[audit]
+logging = true

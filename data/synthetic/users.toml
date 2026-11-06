@@ -1,0 +1,13 @@
+# Invented users for the demo. Real deployments use an identity provider instead.
+
+[users.alex]      # service desk analyst who runs skills
+roles = ["author"]
+
+[users.blake]     # team lead who reviews and approves
+roles = ["approver"]
+
+[users.casey]     # read-only observer
+roles = ["viewer"]
+
+[users.dana]      # holds both roles, to show that nobody can approve their own output
+roles = ["author", "approver"]
