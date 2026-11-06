@@ -1,0 +1,70 @@
+[
+  {
+    "ticket_number": "INC0099101",
+    "category": "Collaboration / Audio",
+    "short_description": "Microphone not detected in Teams after Windows update",
+    "symptoms": [
+      "Other people in the call cannot hear the user.",
+      "The microphone is missing from the Teams device list, but the headset works for playback."
+    ],
+    "cause": "A Windows update reset the microphone privacy setting, so desktop apps no longer had permission to use the microphone.",
+    "resolution_steps": [
+      "Open Settings > Privacy & security > Microphone.",
+      "Turn on 'Let desktop apps access your microphone'.",
+      "Restart Teams and choose the headset under Settings > Devices.",
+      "Make a test call to confirm others can hear the user."
+    ],
+    "notes": "Affected several users on the same update. Seen first on ACME-LT-0522. See INC0099087 for the earlier report.",
+    "reporter_name": "Casey Demo",
+    "reporter_email": "casey.demo@acme-demo.test",
+    "reporter_phone": "555-0161",
+    "asset_hostname": "ACME-LT-0522",
+    "assigned_to": "Sam Sample",
+    "internal_comments": "User was on a customer call when it happened. Apologise to their manager."
+  },
+  {
+    "ticket_number": "INC0099102",
+    "category": "File access",
+    "short_description": "Mapped network drive shows a red X after password change",
+    "symptoms": [
+      "The shared drive letter shows a red X in File Explorer.",
+      "Opening it returns 'Access is denied' even though the user has permission."
+    ],
+    "cause": "Windows kept the old saved credentials for the file share, so it kept trying the old sign-in after the user changed their account password.",
+    "resolution_steps": [
+      "Open Credential Manager and select Windows Credentials.",
+      "Remove the saved entry for the file server.",
+      "Sign out of Windows and sign back in.",
+      "Open the drive again and enter the new sign-in if asked."
+    ],
+    "notes": "Common right after a scheduled password change. If it keeps happening, email the desk lead at deskleads@acme-demo.test.",
+    "reporter_name": "Morgan Demo",
+    "reporter_email": "morgan.demo@acme-demo.test",
+    "asset_hostname": "ACME-DT-0318",
+    "internal_comments": "Third time this quarter for this user."
+  },
+  {
+    "ticket_number": "INC0099103",
+    "category": "Performance",
+    "short_description": "Laptop very slow and fan running constantly",
+    "symptoms": [
+      "Apps take a long time to open.",
+      "The fan is loud and the laptop is hot, even with few programs open.",
+      "The system drive shows almost no free space."
+    ],
+    "cause": "The system drive was nearly full because a large local OneDrive cache and old Teams downloads had built up, which slowed the whole machine.",
+    "resolution_steps": [
+      "Open Settings > System > Storage and review what is using space.",
+      "Run Storage Sense or Disk Cleanup to remove temporary files.",
+      "Set large OneDrive folders to 'Free up space' so they stay online only.",
+      "Restart and confirm there is at least 15 percent free space."
+    ],
+    "notes": "If free space does not recover, the laptop may need a larger drive. Raise it with the hardware team.",
+    "reporter_name": "Jordan Demo",
+    "reporter_email": "jordan.demo@acme-demo.test",
+    "reporter_phone": "555-0175",
+    "asset_hostname": "ACME-LT-0609",
+    "assigned_to": "Sam Sample",
+    "internal_comments": "User is a contractor, confirm device ownership before replacing."
+  }
+]
